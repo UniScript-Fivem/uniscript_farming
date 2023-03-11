@@ -59,10 +59,10 @@ Config.raccolta = {
         },
         dict = "pickup_object",
         lib = "pickup_low",
-        qtymax = 5,
+        qtymax = 1,
         qtymin = 1,
         numAnim = 5,
-        itemForAnimation = false
+        itemForAnimation = true
     }
 }
 
