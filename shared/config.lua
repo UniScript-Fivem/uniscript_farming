@@ -28,7 +28,9 @@ Config.raccolta = {
         prop = "prop_w_me_hatchet",
         rotation = {x=0.05, y=0.02, z=0.02, rx=-44.04, ry=-9.78, rz=-1.43},
         qtymax = 5,
-        qtymin = 0
+        qtymin = 0,
+        numAnim = 5,
+        itemForAnimation = true
     },
     ['mineral'] = {
         coords = {
@@ -44,7 +46,9 @@ Config.raccolta = {
         randomItem = true,
         item = {'iron', 'copper', 'gold'},
         qtymax = 5,
-        qtymin = 1
+        qtymin = 1,
+        numAnim = 5,
+        itemForAnimation = false
     },
     
     ['marijuana'] = {
@@ -56,7 +60,9 @@ Config.raccolta = {
         dict = "pickup_object",
         lib = "pickup_low",
         qtymax = 5,
-        qtymin = 1
+        qtymin = 1,
+        numAnim = 5,
+        itemForAnimation = false
     }
 }
 
