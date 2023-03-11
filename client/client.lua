@@ -29,6 +29,7 @@ RegisterNetEvent('uniscript:farming', function(K)
         local item, qty
 
         qty = math.random(Config.raccolta[K].qtymin, Config.raccolta[K].qtymax)
+        numAnim = Config.raccolta[K].numAnim
         if Config.raccolta[K].randomItem then
             item = Config.raccolta[K].item[math.random(1, #Config.raccolta[K].item)]
         else
@@ -36,17 +37,17 @@ RegisterNetEvent('uniscript:farming', function(K)
         end
 
         Animation(Config.raccolta[K].dict, Config.raccolta[K].lib, item, qty, Config.raccolta[K].prop,
-            Config.raccolta[K].rotation)
+            Config.raccolta[K].rotation, numAnim)
     else
         ESX.ShowNotification(Text.actionFinish, 5000, 'error')
     end
 end)
 
-function Animation(dict, lib, item, count, prop, rotation)
+function Animation(dict, lib, item, count, prop, rotation, num)
     Citizen.CreateThread(function()
         local ped = PlayerPedId()
         FreezeEntityPosition(ped, true)
-        while impacts < 5 do
+        while impacts < num do
             Citizen.Wait(1)
 
             if impacts == 0 then
@@ -67,7 +68,7 @@ function Animation(dict, lib, item, count, prop, rotation)
             Citizen.Wait(2500)
             ClearPedTasks(ped)
             impacts = impacts + 1
-            if impacts == 5 then
+            if impacts == num then
                 farm = false
                 impacts = 0
                 if prop ~= nil then
