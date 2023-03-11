@@ -37,13 +37,13 @@ RegisterNetEvent('uniscript:farming', function(K)
         end
 
         Animation(Config.raccolta[K].dict, Config.raccolta[K].lib, item, qty, Config.raccolta[K].prop,
-            Config.raccolta[K].rotation, numAnim)
+            Config.raccolta[K].rotation, numAnim, Config.raccolta[k].itemForAnimation)
     else
         ESX.ShowNotification(Text.actionFinish, 5000, 'error')
     end
 end)
 
-function Animation(dict, lib, item, count, prop, rotation, num)
+function Animation(dict, lib, item, count, prop, rotation, num, itemForAnim)
     Citizen.CreateThread(function()
         local ped = PlayerPedId()
         FreezeEntityPosition(ped, true)
@@ -68,6 +68,9 @@ function Animation(dict, lib, item, count, prop, rotation, num)
             Citizen.Wait(2500)
             ClearPedTasks(ped)
             impacts = impacts + 1
+            if itemForAnim then
+                    TriggerServerEvent("uniscript:raccolta", item, qty)
+            end
             if impacts == num then
                 farm = false
                 impacts = 0
@@ -76,7 +79,9 @@ function Animation(dict, lib, item, count, prop, rotation, num)
                     DeleteEntity(props)
                     DeleteObject(props)
                 end
-                TriggerServerEvent("uniscript:raccolta", item, qty)
+                if not itemForAnim then
+                    TriggerServerEvent("uniscript:raccolta", item, qty)
+                end
                 FreezeEntityPosition(ped, false)
                 break
             end
