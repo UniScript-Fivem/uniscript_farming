@@ -29,6 +29,7 @@ RegisterNetEvent('uniscript:farming', function(K)
         local item, qty
 
         qty = math.random(Config.raccolta[K].qtymin, Config.raccolta[K].qtymax)
+        print(qty)
         numAnim = Config.raccolta[K].numAnim
         if Config.raccolta[K].randomItem then
             item = Config.raccolta[K].item[math.random(1, #Config.raccolta[K].item)]
@@ -37,7 +38,7 @@ RegisterNetEvent('uniscript:farming', function(K)
         end
 
         Animation(Config.raccolta[K].dict, Config.raccolta[K].lib, item, qty, Config.raccolta[K].prop,
-            Config.raccolta[K].rotation, numAnim, Config.raccolta[k].itemForAnimation)
+            Config.raccolta[K].rotation, numAnim, Config.raccolta[K].itemForAnimation)
     else
         ESX.ShowNotification(Text.actionFinish, 5000, 'error')
     end
@@ -69,7 +70,7 @@ function Animation(dict, lib, item, count, prop, rotation, num, itemForAnim)
             ClearPedTasks(ped)
             impacts = impacts + 1
             if itemForAnim then
-                    TriggerServerEvent("uniscript:raccolta", item, qty)
+                    TriggerServerEvent("uniscript:raccolta", item, count)
             end
             if impacts == num then
                 farm = false
@@ -80,7 +81,7 @@ function Animation(dict, lib, item, count, prop, rotation, num, itemForAnim)
                     DeleteObject(props)
                 end
                 if not itemForAnim then
-                    TriggerServerEvent("uniscript:raccolta", item, qty)
+                    TriggerServerEvent("uniscript:raccolta", item, count)
                 end
                 FreezeEntityPosition(ped, false)
                 break
